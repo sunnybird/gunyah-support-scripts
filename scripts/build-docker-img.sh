@@ -47,6 +47,12 @@ DOCKER_OPTIONS+=" --build-arg USER=${USER} "
 DOCKER_OPTIONS+=" --build-arg REGISTRY=${REGISTRY_SERVER} "
 DOCKER_OPTIONS+=" --build-arg ENV_VER=${CURRENT_VER} "
 
+if [[ "$HTTP_PROXY" != "" ]]; then
+	DOCKER_OPTIONS+=" --build-arg \"HTTP_PROXY=http://${HTTP_PROXY}\" "
+	DOCKER_OPTIONS+=" --build-arg \"HTTPS_PROXY=http://${HTTP_PROXY}\" "
+	DOCKER_OPTIONS+=" --build-arg \"NO_PROXY=localhost,127.0.0.1,.example.com\" "
+fi
+
 # Dockerfile name
 DOCKER_OPTIONS+="  -f ${USE_THIS_DOCKERFILE} "
 
